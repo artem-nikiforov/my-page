@@ -1,40 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
     let switchWord = document.getElementById('switch-word');
-    // Весь ваш остальной код
+    console.log(switchWord);
 
-let roleArr = ['дизайнер','разработчик','продюсер','сценарист','редактор','менеджер']
+    if (!switchWord) {
+        console.error('Элемент switch-word не найден!');
+        return;
+    }
 
-let currentIndex = 0;
-switchWord.textContent = roleArr[currentIndex]
+    let roleArr = ['дизайнер','разработчик','продюсер','сценарист','редактор','менеджер'];
+    let currentIndex = 0;
+    let lastScrollTop = 0;
+    let scrollCounter = 0;
 
-let lastScrollTop = 0;
-let scrollCounter = 0;
+    switchWord.textContent = roleArr[currentIndex];
 
-function updateText() {
-            currentIndex = (currentIndex + 1) % roleArr.length;
-            //switchWord.style.opacity = '0';
-            
-            setTimeout(() => {
-                switchWord.textContent = roleArr[currentIndex];
-                switchWord.style.opacity = '1';
-            }, 150);
-            console.log(currentIndex)
+    function updateText() {
+        currentIndex = (currentIndex + 1) % roleArr.length;
+        setTimeout(() => {
+            switchWord.textContent = roleArr[currentIndex];
+            switchWord.style.opacity = '1';
+        }, 150);
+    }
+
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollDelta = Math.abs(scrollTop - lastScrollTop);
+        
+        scrollCounter += scrollDelta;
+        lastScrollTop = scrollTop;
+        
+        if (scrollCounter >= 20) {
+            updateText();
+            scrollCounter = 0;
         }
-
-// Обработчик скролла
-window.addEventListener('scroll', function() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollDelta = Math.abs(scrollTop - lastScrollTop);
-            
-    // Увеличиваем счетчик на величину скролла
-    scrollCounter += scrollDelta;
-    lastScrollTop = scrollTop;
-            
-    // Каждые 10px обновляем текст
-    if (scrollCounter >= 20) {
-        updateText();
-        scrollCounter = 0; // Сбрасываем счетчик
-            }
-        });
-
     });
+});
