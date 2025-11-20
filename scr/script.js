@@ -1,5 +1,6 @@
-let switchWord = document.getElementById('switch-word');
-console.log(switchWord);
+document.addEventListener('DOMContentLoaded', function() {
+    let switchWord = document.getElementById('switch-word');
+    // Весь ваш остальной код
 
 let roleArr = ['дизайнер','разработчик','продюсер','сценарист','редактор','менеджер']
 
@@ -36,4 +37,4 @@ window.addEventListener('scroll', function() {
             }
         });
 
-    
+    });
